@@ -1,0 +1,9 @@
+api v0.1
+
+open behavior heavy uses [Std.Out] fails {Io.Denied} requires true ensures true cost {mem <= 1k} =
+  seq:
+    region r0:
+      fold bound 99999:
+        track Std.Out.emit["tick"] ::
+          Ok _ -> done
+          Err e -> fail e

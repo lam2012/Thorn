@@ -1,0 +1,15 @@
+api v0.1
+
+open behavior main uses [Std.Out] fails {Io.Denied} requires true ensures true cost {mem <= 4k} =
+  seq:
+    region r0:
+      track neverok[] ::
+        Ok _ -> done
+        Err e -> fail e
+
+local behavior neverok uses [Std.Out] fails {Io.Denied} requires true ensures false cost {mem <= 4k} =
+  seq:
+    region r0:
+      track Std.Out.emit["x"] ::
+        Ok _ -> done
+        Err e -> fail e

@@ -1,0 +1,15 @@
+api v0.1
+
+open behavior main uses [Std.Out] fails {Io.Denied} requires true ensures true cost {mem <= 4k} =
+  seq:
+    region r0:
+      track check[12] ::
+        Ok _ -> done
+        Err e -> fail e
+
+local behavior check[(n: U64)] uses [Std.Out] fails {Io.Denied} requires n <= 10 ensures true cost {mem <= 4k} =
+  seq:
+    region r0:
+      track Std.Out.emit["ok"] ::
+        Ok _ -> done
+        Err e -> fail e

@@ -1,0 +1,15 @@
+api v0.1
+
+local behavior needy uses [Std.Out] fails {Io.Denied} requires true ensures true cost {mem <= 4k} =
+  seq:
+    region r0:
+      track Std.Out.emit["x"] ::
+        Ok _ -> done
+        Err e -> fail e
+
+open behavior caller uses [Std.In] fails {Io.Denied} requires true ensures true cost {mem <= 4k} =
+  seq:
+    region r0:
+      track needy[] ::
+        Ok _ -> done
+        Err e -> fail e

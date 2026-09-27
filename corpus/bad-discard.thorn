@@ -1,0 +1,9 @@
+api v0.1
+
+open behavior idle uses [Std.Out] fails {Io.Denied} =
+  seq:
+    region r0:
+      let msg: Text in r0 = "unused"
+      track Std.Out.emit["hi"] ::
+        Ok _ -> done
+        Err e -> fail e

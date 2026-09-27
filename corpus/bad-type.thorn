@@ -1,0 +1,9 @@
+api v0.1
+
+open behavior count uses [Std.Out] fails {Io.Denied} =
+  seq:
+    region r0:
+      let n: Int in r0 = 42
+      track Std.Out.emit[n] ::
+        Ok _ -> done
+        Err e -> fail e

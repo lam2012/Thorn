@@ -1,0 +1,8 @@
+api v0.1
+
+task root isolates [r0] =
+  region r0:
+    daemon ticker cancel ct uses [Std.Out] fails {Io.Denied} =
+      track Std.Out.emit["tick"] ::
+        Ok _ -> done
+        Err e -> fail e

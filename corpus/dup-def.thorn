@@ -1,0 +1,15 @@
+api v0.1
+
+open behavior dup uses [Std.Out] fails {Io.Denied} requires true ensures true cost {mem <= 4k} =
+  seq:
+    region r0:
+      track Std.Out.emit["a"] ::
+        Ok _ -> done
+        Err e -> fail e
+
+open behavior dup uses [Std.Out] fails {Io.Denied} requires true ensures true cost {mem <= 4k} =
+  seq:
+    region r0:
+      track Std.Out.emit["b"] ::
+        Ok _ -> done
+        Err e -> fail e

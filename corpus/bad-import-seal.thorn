@@ -1,0 +1,10 @@
+api v0.1
+
+import bad = vendor "vendor/bad/v1/bad.thorn" hash "1944903cdb932cc8f32245caefdf6a50cd00ae3564fbb7bc25e2aa15ddf4e75b"
+
+open behavior main uses [Std.Out] fails {Io.Denied} requires true ensures true cost {mem <= 4k} =
+  seq:
+    region r0:
+      track bad.hello[] ::
+        Ok _ -> done
+        Err e -> fail e

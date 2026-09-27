@@ -1,0 +1,10 @@
+api v0.1
+
+# Minimal ordered greeting.
+open behavior greet uses [Std.Out] fails {Io.Denied} =
+  seq:
+    region r0:
+      let msg: Text in r0 = "hello from thorn"
+      track Std.Out.emit[msg] ::
+        Ok _ -> done
+        Err e -> fail e

@@ -1,0 +1,8 @@
+api v0.1
+
+open behavior walk uses [Std.Out] fails {Io.Denied} requires true ensures true cost {mem <= 8k} decreases xs =
+  seq:
+    region r0:
+      track Std.Out.emit["go"] ::
+        Ok _ -> walk[xs.tail]
+        Err e -> fail e

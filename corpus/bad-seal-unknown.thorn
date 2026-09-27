@@ -1,0 +1,9 @@
+api v9.9
+
+open behavior greet uses [Std.Out] fails {Io.Denied} =
+  seq:
+    region r0:
+      let msg: Text in r0 = "hi"
+      track Std.Out.emit[msg] ::
+        Ok _ -> done
+        Err e -> fail e

@@ -1,0 +1,15 @@
+api v0.1
+
+local behavior stamp uses [Oracles.Time] fails {Time.Unavailable} nondet =
+  seq:
+    region r0:
+      track Oracles.Time.now[] ::
+        Ok t -> done
+        Err e -> fail e
+
+open behavior caller uses [Oracles.Time] fails {Time.Unavailable} =
+  seq:
+    region r0:
+      track stamp[] ::
+        Ok t -> done
+        Err e -> fail e

@@ -1,0 +1,10 @@
+api v0.1
+
+local behavior scanempty uses [Std.In, Lex.scan] fails {Parse.Bad} =
+  seq:
+    region rparse gc:
+      track Std.In.read[] ::
+        Ok buf -> track Lex.scan[buf] ::
+          Ok tok -> done
+          Err e -> fail e
+        Err e -> fail e

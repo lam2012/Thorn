@@ -1,0 +1,10 @@
+api v0.1
+
+import nested = vendor "vendor/nested/v1/nested.thorn" hash "88eb73dfd06e7a6188810d2ec8bcb545c62b9145975300dedc08377141cd1561"
+
+open behavior main uses [Std.Out] fails {Io.Denied} requires true ensures true cost {mem <= 4k} =
+  seq:
+    region r0:
+      track nested.nested[] ::
+        Ok _ -> done
+        Err e -> fail e

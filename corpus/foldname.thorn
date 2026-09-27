@@ -1,0 +1,10 @@
+api v0.1
+
+open behavior thriceNamed uses [Std.Out] fails {Io.Denied} requires true ensures true cost {mem <= 4k} =
+  seq:
+    region r0:
+      let n: U64 in r0 = 3
+      fold bound n:
+        track Std.Out.emit["tick"] ::
+          Ok _ -> done
+          Err e -> fail e

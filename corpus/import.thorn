@@ -1,0 +1,10 @@
+api v0.1
+
+import greet = vendor "vendor/greet/v1/greet.thorn" hash "f1f4f5a7381ee66902f416387793a1be0aa7dcfb596d655380b7346f84e4d95c"
+
+open behavior main uses [Std.Out] fails {Io.Denied} requires true ensures true cost {mem <= 4k} =
+  seq:
+    region r0:
+      track greet.hello[] ::
+        Ok _ -> done
+        Err e -> fail e

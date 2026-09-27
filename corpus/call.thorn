@@ -1,0 +1,16 @@
+api v0.1
+
+open behavior shout uses [Std.Out] fails {Io.Denied} requires true ensures true cost {mem <= 4k} =
+  seq:
+    region r0:
+      let msg: Text in r0 = "hi"
+      track greet[msg] ::
+        Ok _ -> done
+        Err e -> fail e
+
+local behavior greet[(t: Text)] uses [Std.Out] fails {Io.Denied} requires true ensures true cost {mem <= 4k} =
+  seq:
+    region r1:
+      track Std.Out.emit[t] ::
+        Ok _ -> done
+        Err e -> fail e

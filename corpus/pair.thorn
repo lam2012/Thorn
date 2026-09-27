@@ -1,0 +1,13 @@
+api v0.1
+
+task root isolates [r0] =
+  region r0:
+    channel msg: Text =
+      spawn greeter uses [msg.send, Std.Out] fails {Io.Denied} =
+        track Std.Out.emit["hello"] ::
+          Ok _ -> msg.send["hello"]
+          Err e -> fail e
+      spawn logger uses [msg.recv, Std.Out] fails {Io.Denied} =
+        track msg.recv[] ::
+          Ok t -> Std.Out.emit[t]
+          Err e -> fail e
